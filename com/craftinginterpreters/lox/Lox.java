@@ -9,9 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import jdk.jfr.internal.query.Report;
-
 public class Lox {
+  static boolean hadError = false;
   public static void main(String[] args) throws IOException {
     if (args.length > 1) {
       System.out.println("Usage: jlox [script]");
@@ -51,4 +50,12 @@ public class Lox {
     }
   }
 
+  static void error(int line, String message) {
+    report(line, "", message);
+  }
+
+  private static void report(int line, String where, String message){
+    System.err.println("[line " + line + "] Error" + where + ": " + message);
+    hadError = true;
+  }
 }
